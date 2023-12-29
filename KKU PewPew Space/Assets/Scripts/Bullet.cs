@@ -27,14 +27,21 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // livstiden för objektet minskas varje frame
+        lifeTime -= Time.deltaTime;
+
+        // om livstiden är under 0 så ska objektet förstöras
+        if (lifeTime < 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if(collision.tag == collisionTag)
         {
-            // eftersom vi vill göra skada minskar vi hälsan
+            // eftersom "bullet" gör skada så är ändringen negativ
             collision.GetComponent<Enemy>().AdjustHealth(-damage);
         }
 	}

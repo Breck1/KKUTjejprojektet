@@ -11,11 +11,10 @@ public class Player : MonoBehaviour
 	// float betyder att det är "flytande" tal, dvs decimaltal, variablarnas värden kan sättas i Unity
 	public float health = 100.0f;
 	public float speed = 10.0f;
-	public float fireRate = 10.0f;
 
-	// sidorna på skärmen, vi sätter variablarna i Unity
-	public float leftEdge = 0.0f;
-	public float rightEdge = 0.0f;
+	// En variabel som sätts i inspektorn, en "bullet"-prefab måste dras in i värde-fältet
+	public Bullet bullet;
+
 
 	// Vector2 är ett sätt att hålla två nummer samtidigt. Som i ett koordinatsystem
 	/* Y
@@ -27,11 +26,34 @@ public class Player : MonoBehaviour
 	 * |
 	 * |_______________ X
 	 */
-	private Vector2 position;
+	// vectorn startar som (0.0f, 0.0f)
+	private Vector2 position = Vector2.zero;
 
 	// om inget är skrivet framför variabeln kommer kompilatorn anta att den är private
-	// vi kommer ta input till höger och vänster från spelaren
+	// spelaren kommer styra höger och vänster hur hårt och åt vilket håll sparas i den här variabeln
 	float verticalInput = 0.0f;
+
+	// sidorna på skärmen, vi sätter variablarna i Start funktionen
+	float leftEdge = 0.0f;
+	float rightEdge = 0.0f;
+
+	// om spelaren kan skjuta eller inte
+	public bool canFire = true;
+
+	// hur många projektiler per sekund
+	public float fireRate = 10.0f;
+
+	// ger inspektorn en variabel som ett objekt kan dras in i, på det sättet är det lättare att justera för vad som känns bra
+	public Transform bulletSpawnTransform;
+
+	// Start körs en gång, innan första Update framen
+	private void Start()
+	{
+		// sätter värdena här
+		leftEdge = GameManager.Instance.GetLeftSide();
+		rightEdge = GameManager.Instance.GetRightSide();
+	}
+
 	// Update körs varje frame, det vill säga varje gång skärmen uppdaterar
 	private void Update()
 	{
@@ -41,9 +63,12 @@ public class Player : MonoBehaviour
 		// transform.position är objektets position i spelvärlden
 		position = transform.position;
 
-		//Vi får input för höger och vänster
+		// Spelaren ger input för höger och vänster som hämtas och sätts här
 		verticalInput = Input.GetAxis("Horizontal");
 		
+		// Koden i funktionen läses uppifrån och ner
+		// så det spelar roll vilka värden som sätts i vilken ordning
+
 		// mellan -1 och 1 -1 är vänster och 1 är höger
 		if (verticalInput != 0 )
 		{
@@ -68,9 +93,32 @@ public class Player : MonoBehaviour
 			position.x = rightEdge;
 		}
 
+		if (Input.GetButton("Fire1"))
+		{
+			if(canFire)
+			{
+				// variabeln "bulletSpawnTransform" flyttas runt i inspektorn. 
+				Instantiate(bullet, bulletSpawnTransform.position, bulletSpawnTransform.rotation);
+				canFire = false;
+				StartCoroutine(ShotTimer());
+			}
+		}
+
 		// nu flyttar vi spelaren till den nya positionen
 		transform.position = position;
 
+		// om hälsan hamnar under 0 så har spelaren förlorat
+		if(health < 0)
+		{
+			//Här förstörs objektet "Player" är på.
+			Destroy(gameObject);
+		}
+	}
+
+	IEnumerator ShotTimer()
+	{
+		yield return new WaitForSeconds(1 / fireRate);
+		canFire = true;
 	}
 
 
