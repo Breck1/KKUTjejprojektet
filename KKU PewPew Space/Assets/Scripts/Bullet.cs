@@ -37,12 +37,17 @@ public class Bullet : MonoBehaviour
         }
     }
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	public void OnTriggerEnter2D(Collider2D collision)
 	{
 		if(collision.tag == collisionTag)
         {
             // eftersom "bullet" gör skada så är ändringen negativ
-            collision.GetComponent<Enemy>().AdjustHealth(-damage);
+            ApplyDamage(collision.GetComponent<Enemy>());
         }
 	}
+    // "virtual" meddelar kompilatorn att en funktion kan bli överskriven av en funktion i en klass som ärver från denna klass
+    public virtual void ApplyDamage(Enemy enemy)
+    {
+        enemy.AdjustHealth(-damage);
+    }
 }

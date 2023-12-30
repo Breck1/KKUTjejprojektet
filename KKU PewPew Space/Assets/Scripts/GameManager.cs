@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 
-        // objektet som skriptet sitter fast på stannar kvar
+        // objektet som skriptet sitter fast på stannar kvar vid laddning av nya scener
 		DontDestroyOnLoad(gameObject);
 	}
 

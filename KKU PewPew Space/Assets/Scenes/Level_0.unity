@@ -345,6 +345,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4629037279184061520, guid: be3aaed2736997047a8dec620d9476ae, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 1179048747232312708, guid: 08350a25cebcf65448aa2c898a5902f1, type: 3}
+    - target: {fileID: 4629037279184061520, guid: be3aaed2736997047a8dec620d9476ae, type: 3}
       propertyPath: leftEdge
       value: -2.8
       objectReference: {fileID: 0}
