@@ -10,6 +10,12 @@ public class Enemy : MonoBehaviour
 	public float speed = 10.0f;
 	public float enemyHealth = 100.0f;
 
+	// "Range" gör om en variabel till en slider mellan de specificerade talen
+	[Range(0.0f, 100.0f)]
+	public float dropRate;
+
+	public Pickup pickupPrefab;
+
 	// om fienden ska röra sig åt höger eller vänster.
 	int direction = 1;
 
@@ -58,13 +64,33 @@ public class Enemy : MonoBehaviour
 		if (enemyHealth < 0)
 		{
 			// så spelaren kan besegra fienden
-			Destroy(gameObject);
+			OnDeath();
 		}
 	}
 	// en funktion för andra skript att ändra hälsan på.
 	public void AdjustHealth(float amount)
 	{
 		enemyHealth += amount;
+	}
+
+	// funktionaliteten som händer när fienden dör
+	void OnDeath()
+	{
+		// "Random.Range" ger ett random nummer mellan två värden, 
+		float drop = Random.Range(0.0f, 100.0f);
+
+		// om en pickup ska spawnas
+		if(drop < dropRate)
+		{
+			// skapa pickupen i spelvärlden
+			Pickup pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
+			
+			// Init-funktionen som skapats i Pickup
+			pickup.Init((PickupType)Random.Range(1, 6));
+		}
+
+		// förstör fienden 
+		Destroy(gameObject);
 	}
 
 }

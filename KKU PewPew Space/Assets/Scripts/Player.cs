@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 	public Bullet bullet;
 
 
+
 	// Vector2 är ett sätt att hålla två nummer samtidigt. Som i ett koordinatsystem
 	/* Y
 	 * |
@@ -120,6 +121,32 @@ public class Player : MonoBehaviour
 		yield return new WaitForSeconds(1 / fireRate);
 		canFire = true;
 	}
+	// för andra skript att ändra health på spelaren
+	public void AdjustHealth(float amount)
+	{
+		health += amount;
+		
+		// "Debug.Log" skriver ut i konsolen i inspektorn, på det sättet är det lätt att se om en funktion körs och om värdena stämmer överens
+		Debug.Log("The player is healed with: " + amount + " healthpoints."); 
+	}
+	// funktioner för pickups att kalla på
+	public void SetBullet(Bullet bullet)
+	{
+		
+		this.bullet = bullet;
+		Debug.Log("The player bullet is changed to: " + bullet.name); 
+	}
+	public void AdjustSpeed(float amount)
+	{
+		speed += amount;
+		Debug.Log("The speed is increased with: " + amount + " units."); 
+	}
+	public void AdjustShield(float amount)
+	{
+		// om en sköld existerar så används denna funktion
+		// för tillfället sänder vi bara ut ett meddelande i inspektorn
 
+		Debug.Log("The shield is trying to increase with: " + amount + " units."); 
+	}
 
 }

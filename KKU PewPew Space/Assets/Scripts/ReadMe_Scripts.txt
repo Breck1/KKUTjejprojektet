@@ -129,3 +129,14 @@ public class MyClass
 }
 
 
+"enum" är en datatyp som håller variablar med en värdetyp
+
+public enum MyEnum
+{
+	// värden seppareras med kommatecken
+	// varje värde är unikt
+	// om inget värde specificeras kommer kompilatorn att tilldela ett värde	
+	MyFirstValue,
+	MySecondValue,
+}
+

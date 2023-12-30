@@ -226,3 +226,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   enemyHealth: 100
+  dropRate: 82.5
+  pickupPrefab: {fileID: 1700320819304192737, guid: 966dbc094fbf35c4e91d8f6ec82b12fa, type: 3}

@@ -375,6 +375,7 @@
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/FlamingBullet.cs"
 "Assets/Scripts/GameManager.cs"
+"Assets/Scripts/Pickup.cs"
 "Assets/Scripts/Player.cs"
 -langversion:9.0
 
