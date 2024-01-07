@@ -1,3 +1,5 @@
+Scenes
+
 Unity använder sig av "scenes". För mindre spel används en scen i taget i hierarkin i Unity (med undantag för "DontDestroyOnLoad"). Större spel kan behöva
 flera scener samtidigt för att hantera mer data. Det kan också göra att sammarbete mellan olika avdelingar blir lättare. 
 
